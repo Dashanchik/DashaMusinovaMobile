@@ -37,16 +37,27 @@ public class TestProperties {
     public static String getApp() {
         return getProperty("aut");
     }
+
     public static String getWeb() {
         return getProperty("sut");
     }
+
     public static String getPlatform() {
         return getProperty("platform");
     }
+
     public static String getDriver() {
         return getProperty("driver");
     }
+
     public static String getChromeDriver() {
         return getProperty("chromeDriver");
+    }
+
+    public static String getDeviceName() {
+        return getProperty("deviceName");
+    }
+    public static String getAccountName() {
+        return getProperty("accountName");
     }
 }

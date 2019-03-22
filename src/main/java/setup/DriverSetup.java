@@ -11,8 +11,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class DriverSetup extends TestProperties{
-//    public AndroidDriver driver;
+public class DriverSetup extends TestProperties {
+    //    public AndroidDriver driver;
     protected AppiumDriver driver;
     protected DesiredCapabilities capabilities;
     protected WebDriverWait wait;
@@ -24,58 +24,62 @@ public class DriverSetup extends TestProperties{
 
     protected DriverSetup() {
         AUT = getApp();
-        SUT = getWeb();
+//        SUT = getWeb();
         TEST_PLATFORM = getPlatform();
         DRIVER = getDriver();
     }
 
-    protected void prepareDriver() throws Exception{
-       capabilities = new DesiredCapabilities();
-       String browserName;
+    protected void prepareDriver() throws Exception {
+        capabilities = new DesiredCapabilities();
+        String path = System.getProperty("user.dir");
+        String browserName;
 
-       switch (TEST_PLATFORM){
-           case "Android":
-               capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"emulator-5554");
-               browserName = "Chrome";
-               break;
-           case "iOS":
-               browserName = "Safari";
-               break;
-           default: throw new Exception("Unknown mobile platform");
-       }
-       capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,TEST_PLATFORM);
+        switch (TEST_PLATFORM) {
+            case "Android":
+                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, TestProperties.getDeviceName());
+                browserName = "Chrome";
+                break;
+            case "iOS":
+                browserName = "Safari";
+                break;
+            default:
+                throw new Exception("Unknown mobile platform");
+        }
 
-       if(AUT != null && SUT == null){
-           File app = new File(AUT);
-           capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
-       } else if (SUT != null && AUT == null) {
-           capabilities.setCapability(MobileCapabilityType.BROWSER_NAME,browserName);
-       }else{
-           throw new Exception("Unclear type of mobile app");
-       }
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, TEST_PLATFORM);
 
-       driver=new AppiumDriver(new URL(DRIVER),capabilities);
+        if (AUT != null && SUT == null) {
+            File app = new File(path + AUT);
+            capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+        } else if (SUT != null && AUT == null) {
+            capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, browserName);
+            capabilities.setCapability("chromedriverExecutable", path + TestProperties.getChromeDriver());
+        } else {
+            throw new Exception("Unclear type of mobile app");
+        }
+
+        driver = new AppiumDriver(new URL(DRIVER), capabilities);
     }
 
     public void prepareAndroidNative() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "emulator-5554");
+        capabilities.setCapability("deviceName", TestProperties.getDeviceName());
         capabilities.setCapability("platformName", getPlatform());
 
 //        capabilities.setCapability("adbExecTimeout", "50000");
         String path = System.getProperty("user.dir");
-        File app = new File (path + getApp());
+        File app = new File(path + getApp());
 
         capabilities.setCapability("aut", app.getAbsolutePath());
 
         driver = new AndroidDriver(new URL(TestProperties.getDriver()), capabilities);
     }
 
-    public void prepareAndroidWeb() throws MalformedURLException{
+    public void prepareAndroidWeb() throws MalformedURLException {
         String path = System.getProperty("user.dir");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "emulator-5554");
+        capabilities.setCapability("deviceName", TestProperties.getDeviceName());
         capabilities.setCapability("platformName", getPlatform());
         capabilities.setCapability("chromedriverExecutable", path + TestProperties.getChromeDriver());
         capabilities.setCapability("browserName", "Chrome");
