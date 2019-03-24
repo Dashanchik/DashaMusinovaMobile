@@ -24,7 +24,7 @@ public class DriverSetup extends TestProperties {
 
     protected DriverSetup() {
         AUT = getApp();
-//        SUT = getWeb();
+        SUT = getWeb();
         TEST_PLATFORM = getPlatform();
         DRIVER = getDriver();
     }
@@ -59,6 +59,7 @@ public class DriverSetup extends TestProperties {
         }
 
         driver = new AppiumDriver(new URL(DRIVER), capabilities);
+        wait = new WebDriverWait(driver,10);
     }
 
     public void prepareAndroidNative() throws MalformedURLException {
