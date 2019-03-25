@@ -1,38 +1,30 @@
 package scenarios.nativeTests;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.hamcrest.Matcher;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.touch.TouchActions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 import setup.ContactType;
-import setup.DriverSetup;
-import setup.TestProperties;
+import setup.Hooks;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertTrue;
 
-public class FirstContactManagerSimpleTest extends DriverSetup {
+@Test(groups = "native")
+public class FirstContactManagerSimpleTest extends Hooks {
 
-    protected FirstContactManagerSimpleTest() {
-    }
-
-    @BeforeSuite
-    public void setup() throws Exception {
-//        prepareAndroidWeb();
-//        prepareAndroidNative();
-        SUT = null;
-        prepareDriver();
+    public FirstContactManagerSimpleTest(){
+        super("native");
     }
 
     @Test(description = "Add contact via contact manager")
-    public void SimpleTest() {
+    public void SimpleTest(){
+        // Get driver
+        AppiumDriver driver = getDriver();
         String appPackageName = "com.example.android.contactmanager:id/";
         By addButton = By.id(appPackageName + "addContactButton");
         By targetAccount = By.id(appPackageName + "accountSpinner");
@@ -45,7 +37,7 @@ public class FirstContactManagerSimpleTest extends DriverSetup {
         By contactList = By.id(appPackageName + "contactList");
 
         driver.findElement(addButton).click();//todo add button clicked assert
-        driver.findElement(targetAccount).getText().equalsIgnoreCase(TestProperties.getAccountName());
+        driver.findElement(targetAccount).getText().equalsIgnoreCase(getAccountName());
         driver.findElement(contactName).sendKeys("Carlson");
         driver.findElement(contactPhone).sendKeys("223322");
         driver.findElement(contactPhoneType).click();
@@ -81,8 +73,5 @@ public class FirstContactManagerSimpleTest extends DriverSetup {
         System.out.println("Simplest Appium test done");
     }
 
-    @AfterSuite
-    public void tearDown() throws Exception {
-        driver.quit();
-    }
+
 }

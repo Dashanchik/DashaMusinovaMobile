@@ -6,15 +6,16 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class TestProperties {
-
-    private static String getProperty(String property) {
+    TestProperties(){}
+    String fileName;
+    String getProperty(String property) {
 
         Properties prop = new Properties();
         InputStream input = null;
         String value = "";
 
         try {
-            input = new FileInputStream("src\\main\\resources\\test.properties");
+            input = new FileInputStream("src\\main\\resources\\" + fileName);
 
             prop.load(input);
 
@@ -34,30 +35,31 @@ public class TestProperties {
         return value;
     }
 
-    public static String getApp() {
+    protected String getApp() {
         return getProperty("aut");
     }
 
-    public static String getWeb() {
+    protected String getWeb() {
         return getProperty("sut");
     }
 
-    public static String getPlatform() {
+    protected String getPlatform() {
         return getProperty("platform");
     }
 
-    public static String getDriver() {
+    protected String getAppiumDriver() {
         return getProperty("driver");
     }
 
-    public static String getChromeDriver() {
+    protected String getChromeDriver() {
         return getProperty("chromeDriver");
     }
 
-    public static String getDeviceName() {
+    protected String getDeviceName() {
         return getProperty("deviceName");
     }
-    public static String getAccountName() {
+
+    protected String getAccountName() {
         return getProperty("accountName");
     }
 }
