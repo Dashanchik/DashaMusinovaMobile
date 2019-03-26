@@ -1,20 +1,24 @@
 package setup;
 
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
+@Test(groups = {"native","web"})
 public class Hooks extends DriverSetup {
-    public static String appType;
+
+    private static String appType;
 
     public Hooks(String setup) {
-        this.appType = setup;
+        appType = setup;
     }
 
-    @BeforeSuite
+    @BeforeClass(description = "Start driver session")
     public void setup() throws Exception {
         if (getDriver() == null) setDriver(appType);
     }
 
-    @AfterSuite
+    @AfterClass(description = "Close driver session")
     public void tearDown() {
         getDriver().quit();
     }

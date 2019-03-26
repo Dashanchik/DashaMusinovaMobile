@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import setup.enums.AppType;
 
 import java.io.File;
 import java.net.URL;
@@ -18,18 +19,18 @@ public class DriverSetup extends TestProperties {
     private static String TEST_PLATFORM;
     private static String DRIVER;
 
-    protected DriverSetup() {
+    DriverSetup() {
     }
 
-    protected void setDriver(String appType) throws Exception {
+    void setDriver(String appType) throws Exception {
         setFileByApp(appType);
         prepareDriver(appType);
     }
 
     private void setFileByApp(String appType) {
-        if (appType == "web") {
+        if (appType.equals(AppType.WEB.getType())) {
             fileName = "webTest.properties";
-        } else if (appType == "native") {
+        } else if (appType.equals(AppType.NATIVE.getType())) {
             fileName = "nativeTest.properties";
         }
     }
@@ -52,11 +53,11 @@ public class DriverSetup extends TestProperties {
                 throw new Exception("Unknown mobile platform");
         }
 
-        if (setup == "web") {
+        if (setup.equals(AppType.WEB.getType())) {
             SUT = getWeb();
             capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, browserName);
             capabilities.setCapability("chromedriverExecutable", path + getChromeDriver());
-        } else if (setup == "native") {
+        } else if (setup.equals(AppType.NATIVE.getType())) {
             AUT = getApp();
             File app = new File(path + AUT);
             capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
@@ -71,7 +72,7 @@ public class DriverSetup extends TestProperties {
         wait = new WebDriverWait(singleDriver, 10);
     }
 
-    public AppiumDriver getDriver() {
+    protected AppiumDriver getDriver() {
         return singleDriver;
     }
 

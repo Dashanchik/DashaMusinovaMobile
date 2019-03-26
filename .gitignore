@@ -24,10 +24,6 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-// TODO iml file of IDEA could be included to repo - Dmitry L. said it's not needed
-// TODO yes, Dmitry L. is right. However you didn't fix possibility adding this file to the repo - fixed
-// TODO avoid adding target folder to the git repo - fixed
-
 target/
 .idea/
 *.iml

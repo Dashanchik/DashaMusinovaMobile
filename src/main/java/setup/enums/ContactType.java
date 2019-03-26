@@ -1,4 +1,4 @@
-package setup;
+package setup.enums;
 
 public enum ContactType {
     HOME("//android.widget.CheckedTextView[1]"),
