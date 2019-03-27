@@ -43,7 +43,7 @@ public class DriverSetup extends TestProperties {
         TEST_PLATFORM = getPlatform();
         switch (TEST_PLATFORM) {
             case "Android":
-                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, getDeviceName());
+                capabilities.setCapability(MobileCapabilityType.UDID, getUdid());
                 browserName = "Chrome";
                 break;
             case "iOS":
@@ -56,7 +56,7 @@ public class DriverSetup extends TestProperties {
         if (setup.equals(AppType.WEB.getType())) {
             SUT = getWeb();
             capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, browserName);
-            capabilities.setCapability("chromedriverExecutable", path + getChromeDriver());
+//            capabilities.setCapability("chromedriverExecutable", path + getChromeDriver());
         } else if (setup.equals(AppType.NATIVE.getType())) {
             AUT = getApp();
             File app = new File(path + AUT);

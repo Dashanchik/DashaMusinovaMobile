@@ -59,7 +59,7 @@ public class TestProperties {
         return getProperty("deviceName");
     }
 
-    protected String getAccountName() {
-        return getProperty("accountName");
+    protected String getUdid(){
+        return getProperty("udid");
     }
 }
