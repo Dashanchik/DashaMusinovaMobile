@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Native tests suite" parallel="methods" thread-count="1">
+    <test name="FirstContactManagerSimpleTest">
+        <groups>
+            <define name="native"/>
+            <run>
+                <include name="native"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="scenarios.nativeTests"/>
+        </packages>
+    </test>
+</suite>
