@@ -56,11 +56,11 @@ public class DriverSetup extends TestProperties {
         if (setup.equals(AppType.WEB.getType())) {
             SUT = getWeb();
             capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, browserName);
-//            capabilities.setCapability("chromedriverExecutable", path + getChromeDriver());
         } else if (setup.equals(AppType.NATIVE.getType())) {
             AUT = getApp();
             File app = new File(path + AUT);
-            capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+            capabilities.setCapability("appPackage", getAppPackage());
+            capabilities.setCapability("appActivity", getAppActivity());
         } else {
             throw new Exception("Unclear type of mobile app");
         }

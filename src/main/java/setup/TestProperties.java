@@ -62,4 +62,12 @@ public class TestProperties {
     protected String getUdid(){
         return getProperty("udid");
     }
+
+    protected String getAppPackage(){
+        return getProperty("applicationPackage");
+    }
+
+    protected String getAppActivity(){
+        return getProperty("applicationActivity");
+    }
 }
