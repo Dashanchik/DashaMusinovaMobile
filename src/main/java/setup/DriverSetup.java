@@ -23,11 +23,11 @@ public class DriverSetup extends TestProperties {
     }
 
     void setDriver(String appType) throws Exception {
-        setFileByApp(appType);
+        setPropFileByApp(appType);
         prepareDriver(appType);
     }
 
-    private void setFileByApp(String appType) {
+    private void setPropFileByApp(String appType) {
         if (appType.equals(AppType.WEB.getType())) {
             fileName = "webTest.properties";
         } else if (appType.equals(AppType.NATIVE.getType())) {
