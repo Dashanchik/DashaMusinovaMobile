@@ -47,6 +47,7 @@ public class DriverSetup extends TestProperties {
                 browserName = "Chrome";
                 break;
             case "iOS":
+                capabilities.setCapability(MobileCapabilityType.UDID, getUdid());
                 browserName = "Safari";
                 break;
             default:
